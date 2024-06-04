@@ -1,0 +1,26 @@
+{
+  "firstname": "Canara",
+  "lastname": "bank",
+  "city": "RAJAHMUNDRY",
+  "email": "manikanta9963917528@gmail.com",
+  "phone": "9381719499",
+  "education": [
+    {
+      "qualification": "",
+      "area": "",
+      "score": ""
+    }
+  ],
+  "workExperience": [
+    {
+      "jobTitle": "",
+      "company": "",
+      "duration": ""
+    }
+  ],
+  "skills": [
+    {
+      "skill": ""
+    }
+  ]
+}

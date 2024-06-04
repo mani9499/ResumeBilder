@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RBuilder</title>
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            background-image: url('https://images.pexels.com/photos/5668869/pexels-photo-5668869.jpeg?auto=compress&cs=tinysrgb&w=600');
+            color: white;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        header {
+            width: 100%;
+            background-image: linear-gradient(45deg, skyblue, yellowgreen);
+            padding: 10px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        button {
+            background-color: rgb(31, 189, 110);
+            color: white;
+            width: 100px;
+            height: 35px;
+            font-size: medium;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: rgb(27, 102, 200);
+        }
+
+        form {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 300px;
+            margin-top: 20px;
+        }
+
+        form label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        form input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            margin-top: 10px;
+        }
+
+        #000 {
+            margin-top: 20px;
+        }
+        body div{
+            height:10%;
+            width:100%;
+            color:white;
+            background-image:linear-gradient(45deg,blue,orange);
+        }
+
+    </style>
+    <script>
+        function toggle() {
+            let a = document.getElementById("000");
+            let r = document.getElementById("reg");
+            let l = document.getElementById("log");
+            if (a.value === "Register") {
+                a.value = "Login";
+                a.textContent = "Login";
+                r.style.display = "flex";
+                l.style.display = "none";
+            } else {
+                a.value = "Register";
+                a.textContent = "Register";
+                r.style.display = "none";
+                l.style.display = "flex";
+            }
+        }
+
+        function registerUser(event) {
+            event.preventDefault();
+            let name = document.getElementById("regName").value;
+            let email = document.getElementById("regEmail").value;
+            let password = document.getElementById("regPassword").value;
+            let confirmPassword = document.getElementById("regConfirmPassword").value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            let newUser = {
+                name: name,
+                email: email,
+                password: password
+            };
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            let userExists = users.some(user => user.email === email);
+            if (userExists) {
+                alert("User already registered with this email!");
+                return;
+            }
+            users.push(newUser);
+            localStorage.setItem("users", JSON.stringify(users));
+            alert("User registered successfully!");
+        }
+
+        function loginUser(event) {
+            event.preventDefault();
+            let email = document.getElementById("logEmail").value;
+            let password = document.getElementById("logPassword").value;
+            let users = JSON.parse(localStorage.getItem("users")) || [];
+            let user = users.find(user => user.email === email && user.password === password);
+
+            if (user) {
+                alert("Login successful!");
+                window.location.href = "create.html";
+            } else {
+                alert("Invalid email or password.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="111"><center><h2>RBuilder</h2></center></div>
+    <form id="reg" style="display:flex;flex-direction:column;align-items:center;" onsubmit="registerUser(event)">
+        <label>Name</label><input id="regName" type="text" required><br>
+        <label>Email</label><input id="regEmail" type="text" required><br>
+        <label>Password</label><input id="regPassword" type="password" required><br>
+        <label>Confirm Password</label><input id="regConfirmPassword" type="password" required><br>
+        <button type="submit">Register</button><br>
+    </form>
+    <form id="log" style="display:none;flex-direction:column;align-items:center;" onsubmit="loginUser(event)">
+        <label>Email</label><input id="logEmail" type="text" required><br>
+        <label>Password</label><input id="logPassword" type="password" required><br>
+        <button type="submit">Login</button><br>
+    </form>
+    <center><button id="000" value="Register" onclick="toggle()">Login</button></center>
+</body>
+</html>
